@@ -31,12 +31,7 @@
 			<div id="content">
 				<h3>Vous pouvez remplir ce formulaire :</h3>
 				<div class="portfolio-item-email">
-					<?php
-					$action=$_REQUEST['action'];
-					if ($action=="")    /* display the contact form */
-					{
-					?>
-					<form id="contact_form" action="" method="POST" enctype="multipart/form-data">
+					<form id="contact_form" action="http://formspree.io/simoncoteduchesne@gmail.com" method="POST" enctype="multipart/form-data">
 						<div class="row">
 							<label for="name">Votre nom :</label><br />
 							<input id="name" class="input" name="name" type="text" value="" size="30" /><br />
@@ -51,25 +46,6 @@
 						</div>
 						<input id="submit_button" type="submit" value="Send email" />
 					</form>
-					<?php
-				    } 
-					else                /* send the submitted data */
-					    {
-					    $name=$_REQUEST['name'];
-					    $email=$_REQUEST['email'];
-					    $message=$_REQUEST['message'];
-					    if (($name=="")||($email=="")||($message==""))
-					        {
-					        echo "All fields are required, please fill again.";
-					        }
-					    else{
-					    	from="From: $name \r\nReturn-path: $email";
-					    	$subject="Message sent using your contact form";
-					        mail("simoncoteduchesne@gmail.com", $subject, $message, $from);
-					        echo "Email sent!";
-					        }
-					    }  
-				?>
 				</div>
 				<h3>Ou alors, passer par les médias sociaux :</h3>
 				<div class="portfolio-item">

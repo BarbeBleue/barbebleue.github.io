@@ -200,8 +200,11 @@ ul#nav {
 			color: #671111;
 	}
 	#footer a#social{
-			float: right; /*margin: 0 20px 20px 0;*/ max-width: 100px; max-height: 100px
+			float: right; margin: 0 0 0 0; width: 75px; height: 75px
+	}
+	#footer a#twitter{
+			float: right; margin: 0 0 0 0; width: 85px; height: 85px
 	}
 	#footer p#menu {
-			position: relative ; left: 350px;
+			position: relative ; left: 350px; margin: 20px 0 0 0;
 	}

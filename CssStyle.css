@@ -12,7 +12,7 @@ body {
 }
 
 #logo {
-	display: block; width: auto; height: auto; max-width: 230px; max-height: 95px;
+	display: block; width: auto; height: auto; max-width: 45px; max-height: 30px;
 }
 ul#nav {
 	width: 940px; list-style: none; overflow: hidden; margin: -134px auto 25px auto;

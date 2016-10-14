@@ -24,35 +24,62 @@
 		    </ul>
 
 		    <div id="header">
-			    <h1> Salut! je m'apelle Simon Côté-Duchesne </h1>
-			    <h2> et j'aspire à travailler dans l'industrie du jeu vidéo! </h2>
+			    <h1> Rien de plus simple que de me contacter! </h1>
+			    <h2> utilisez n'importe lequel des moyens ci-dessous. </h2>
 			    <p class="btn"><img src="images/home-header-btn.png"></p>
 		    </div>
 			<div id="content">
-				<h3> À propos de moi </h3>
-				<p id="profil-texte">Diplômé d'un baccalauréat en administration des affaires des HEC de montréal, je n'ai jamais travaillé dans le domaine de l'administration, car je savais que je voulais absolument travailler dans l'industrie du jeu vidéo. Pour atteindre cet objectif, j'ai quitté ma ville natale de Montréal pour entamer un baccalauréat avec une majeure en conception de jeux vidéo à l'Université du Québec à Chicoutimi. En apprenant la programmation à partir de la base j'ai pu acquérir des notions totalement différentes, mais complémentaires à ma formation en administration. En m'impliquant dans tous les aspects de la vie étudiante, j'ai aussi pu prouver mes capacités de travail d'équipe ainsi que mettre en eouvre ma formation en administration. Autrement, j'affectionne tous les médiums du divertissement soit les jeux vidéo, les jeux de table, les livres et le cinéma. J'aime partager cette passion et vous pourrez vous en appercevoir de par ma contribution en tant que <a href="http://multijoueur.ca/author/scote/" target="_blank">rédacteur chez Multijoueur</a>. </p>
-				<h3>Présentement</h3>
+				<h3>Vous pouvez remplir ce formulaire :</h3>
+				<div class="portfolio-item-email">
+					<?php
+					$action=$_REQUEST['action'];
+					if ($action=="")    /* display the contact form */
+					{
+					?>
+					<form id="contact_form" action="" method="POST" enctype="multipart/form-data">
+						<div class="row">
+							<label for="name">Votre nom :</label><br />
+							<input id="name" class="input" name="name" type="text" value="" size="30" /><br />
+						</div>
+						<div class="row">
+							<label for="email">Votre courriel :</label><br />
+							<input id="email" class="input" name="email" type="text" value="" size="50" /><br />
+						</div>
+						<div class="row">
+							<label for="message">Votre message :</label><br />
+							<textarea id="message" class="input" name="message" rows="7" cols="105"></textarea><br />
+						</div>
+						<input id="submit_button" type="submit" value="Send email" />
+					</form>
+					<?php
+				    } 
+					else                /* send the submitted data */
+					    {
+					    $name=$_REQUEST['name'];
+					    $email=$_REQUEST['email'];
+					    $message=$_REQUEST['message'];
+					    if (($name=="")||($email=="")||($message==""))
+					        {
+					        echo "All fields are required, please fill again.";
+					        }
+					    else{
+					    	from="From: $name \r\nReturn-path: $email";
+					    	$subject="Message sent using your contact form";
+					        mail("simoncoteduchesne@gmail.com", $subject, $message, $from);
+					        echo "Email sent!";
+					        }
+					    }  
+				?>
+				</div>
+				<h3>Ou alors, passer par les médias sociaux :</h3>
 				<div class="portfolio-item">
-					<a href="http://programmes.uqac.ca/6908" target="_blank"><h4>Étudiant</h4><h5>Baccalauréat avec majeure en conception de jeux vidéo</h5></a><h6>2014 - 2017</h6>
+					<a href="https://www.linkedin.com/in/simon-cote-8228a537" target="_blank"><img src="images/linkedin.png" alt="linkedin"></a>
 				</div>
 				<div class="portfolio-item">
-					<a href="http://www.aemi.ca/" target="_blank"><h4>Président</h4><h5>Association étudiante en mathématiques et informatique</h5></a>
-					<h6>2016 - 2017</h6>
-				</div>
+					<a href="https://www.facebook.com/simon.cote.7374" target="_blank"><img src="images/facebook.png" alt="facebook"></a>
+				</div>				
 				<div class="portfolio-item">
-					<a href="http://jam.aemi.ca/" target="_blank"><h4>Président</h4><h5>Comité pour l'organisation du WonderJAM (Game Jam de l'UQAC)</h5></a><h6>2016 - 2017</h6>
-				</div>	
-				<div class="portfolio-item">						
-					<a href="http://wonderlan.aemi.ca/" target="_blank"><h4>WonderLAN</h4><h5>Comité organisateur du WonderLAN</h5></a>
-					<h6>2014 - 2016</h6>
-				</div>
-				<div class="portfolio-item">
-					<a href="http://multijoueur.ca/author/scote/" target="_blank"><h4>Rédacteur</h4><h5>Multijoueur.ca</h5></a>
-					<h6>2013 - 2016</h6>
-				</div>
-				<div class="portfolio-item">
-					<a href="http://cours.uqac.ca/8GIF150" target="_blank"><h4>Chargé de travaux dirigés</h4><h5> Cours de conception de jeux vidéo</h5></a>
-					<h6> session d'automne 2016</h6>
+					<a href="https://twitter.com/Simon_CoteDuch" target="_blank"><img src="images/twitter.png" alt="twitter"></a>
 				</div>
 			</div>
 			<div id="footer">

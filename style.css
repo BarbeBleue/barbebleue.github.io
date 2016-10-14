@@ -45,7 +45,7 @@ ul#nav {
 
 #header {
 	height: 244px; padding: 52px 0 0 57px;
-	background: url(images/home-header.jpg);
+	background: url(images/home-header.png);
 }
 
 #header.page {
@@ -62,7 +62,19 @@ ul#nav {
 		text-shadow: 0px 3px 3px #494949;
 	}
 	#header p.btn{
-		position: relative; right: -200px; top: -50px; display:block; overflow: hidden;
+		position: relative; right: -200px; top: -60px; display:block; overflow: hidden;
+	}
+	#header a:link{
+		color: white;
+	}
+	#header a:visited{
+		color: pink;
+	}
+	#header a:hover{
+		color: lightblue;
+	}
+	#header a:active{
+		color: black;
 	}
 	
 #content {
@@ -87,7 +99,33 @@ ul#nav {
 		#content a:hover {
 			color: #671111;
 		}
+
+#cv {
+	background: url(images/content-bg.png) repeat-y;
+	padding: 57px 69px 50px 69px; overflow: hidden;
+}
+	#cv h2 {
+		position : relative; float: center; font: 30px Georgia, Serif; letter-spacing: 2px; margin: 0 0 20px 0;
+	}
+
+	#cv h3 {
+		font: 26px Georgia, Serif; letter-spacing: 2px; margin: 30px 20px 20px 0;
+	}
 	
+	#cv p {
+		margin: 0 0 30px 0; text-align: justify; text-justify: inter-word;
+	}
+	
+	#cv a {
+		color: #a12121; text-decoration: none;
+	}
+		#cv a:hover {
+			color: #671111;
+		}
+	#cv object {
+		position: relative; float: middle; margin: 50px 0 0 0; width: 825px; height: 700px;
+	}
+
 #content .portfolio-item {
 	width: 240px; padding: 10px; background: #eee; text-align: center;
 	float: left; margin: 0 7px 14px 7px;
@@ -101,6 +139,11 @@ ul#nav {
 		font-weight: bold; text-align: center; text-transform: uppercase;
 		 text-decoration: none;
 	}
+
+#content .portfolio-item-email {
+	width: 785px; padding: 10px; background: #eee; text-align: left;
+	float: left; margin: 0 7px 14px 7px;
+}
 		
 #content img.profile-pic {
 	float: right; margin: -40px 40px 0 0;
@@ -160,28 +203,6 @@ ul#nav {
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#73767c), color-stop(100%,#415D79)); /* webkit */
 		cursor: pointer;
 	}
-
-
-#content #social {
-	width: 371px; float: left; 
-}		
-	#content #social ul {
-		list-style: none;
-	}
-		#content #social ul li {
-			float: left; margin: 0 20px 20px 0;
-		}
-			#content #social ul li a {
-				display: block; width: 100px; padding: 5px 0 5px 45px;
-				background: url(images/social-icons.png) no-repeat;
-			}
-				#content #social ul li a.twitter { background-position: 0 -3px; }
-				#content #social ul li a.youtube { background-position: -172px -1px; }
-				#content #social ul li a.facebook { background-position: -172px -136px; }
-				#content #social ul li a.flickr { background-position: 0 -71px; }
-				#content #social ul li a.digg { background-position: -172px -71px; }
-				#content #social ul li a.lastfm { background-position: 0 -140px; }
-
 		
 #footer {
 	background: url(images/footer-bg.png) no-repeat; padding: 40px 0 0 0;

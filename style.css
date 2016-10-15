@@ -171,6 +171,10 @@ button.accordion {
     transition: 0.4s;
 }
 
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
 button.accordion:after {
     content: '\02795';
     font-size: 13px;

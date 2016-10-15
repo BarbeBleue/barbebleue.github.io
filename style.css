@@ -88,6 +88,10 @@ ul#nav {
 	#content h3 {
 		font: 26px Georgia, Serif; letter-spacing: 2px; margin: 0 0 20px 0;
 	}
+
+	#content #inner {
+		display: inline-block; width: 630px; height: 10px; float: right; font: 20px Georgia, Serif; letter-spacing: 2px; margin: 25px 0 0 0;
+	}
 	
 	#content p {
 		margin: 0 0 30px 0; text-align: justify; text-justify: inter-word;

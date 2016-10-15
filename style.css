@@ -20,20 +20,20 @@ ul#nav {
 }
 	ul#nav a {
 		width: 126px; height: 33px; float: left; padding: 13px 0 0 0;
-		background: url(images/nav-bg.png);
+		background: url(images/nav-bg.png); color: #444; text-decoration: none;
 		font-weight: bold; text-align: center; text-transform: uppercase;
 	}
 		ul#nav a:nth-child(1) {
-			margin: 0 60px 0 0;text-decoration: none
+			margin: 0 60px 0 0;
 		}
 		ul#nav a:nth-child(2) {
-			margin: 0 316px 0 0;text-decoration: none
+			margin: 0 316px 0 0;
 		}
 		ul#nav a:nth-child(3) {
-			margin: 0 60px 0 0;text-decoration: none
+			margin: 0 60px 0 0;
 		}
 		ul#nav a:nth-child(4) {
-			margin: 0;text-decoration: none
+			margin: 0;
 		}
 
 		ul#nav li a {

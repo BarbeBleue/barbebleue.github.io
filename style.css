@@ -102,7 +102,7 @@ ul#nav {
 
 #cv {
 	background: url(images/content-bg.png) repeat-y;
-	padding: 57px 69px 50px 69px; overflow: hidden;
+	padding: 30px 69px 50px 69px; overflow: hidden;
 }
 	#cv h2 {
 		position : relative; float: center; font: 30px Georgia, Serif; letter-spacing: 2px; margin: 0 0 20px 0;
@@ -110,6 +110,10 @@ ul#nav {
 
 	#cv h3 {
 		font: 26px Georgia, Serif; letter-spacing: 2px; margin: 30px 20px 20px 0;
+	}
+
+	#cv h4 {
+		font: 18px Georgia, Serif; letter-spacing: 2px; margin: 0px 0px 0px 0;
 	}
 	
 	#cv p {
@@ -123,7 +127,7 @@ ul#nav {
 			color: #671111;
 		}
 	#cv object {
-		position: relative; float: middle; margin: 50px 0 0 0; width: 825px; height: 700px;
+		position: relative; float: middle; margin: 40px 0 0 0; width: 825px; height: 700px; border-style: solid; border-color: #556;
 	}
 
 #content .portfolio-item {

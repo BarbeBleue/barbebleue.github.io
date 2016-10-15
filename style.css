@@ -18,22 +18,22 @@ body {
 ul#nav {
 	width: 940px; list-style: none; overflow: hidden; margin: -134px auto 25px auto;
 }
-	ul#nav li {
+	ul#nav a {
 		width: 126px; height: 33px; float: left; padding: 13px 0 0 0;
 		background: url(images/nav-bg.png);
 		font-weight: bold; text-align: center; text-transform: uppercase;
 	}
-		ul#nav li:nth-child(1) {
-			margin: 0 60px 0 0;
+		ul#nav a:nth-child(1) {
+			margin: 0 60px 0 0;text-decoration: none
 		}
-		ul#nav li:nth-child(2) {
-			margin: 0 316px 0 0;
+		ul#nav a:nth-child(2) {
+			margin: 0 316px 0 0;text-decoration: none
 		}
-		ul#nav li:nth-child(3) {
-			margin: 0 60px 0 0;
+		ul#nav a:nth-child(3) {
+			margin: 0 60px 0 0;text-decoration: none
 		}
-		ul#nav li:nth-child(4) {
-			margin: 0;
+		ul#nav a:nth-child(4) {
+			margin: 0;text-decoration: none
 		}
 
 		ul#nav li a {
@@ -145,6 +145,14 @@ ul#nav {
 		background: url(images/see-more-bg.png);
 		font-weight: bold; text-align: center; text-transform: uppercase;
 		 text-decoration: none;
+	}
+
+#content .portfolio-item-twitter {
+	width: 240px; padding: 10px; background: #eee; text-align: center;
+	float: left; margin: 0 7px 14px 7px;
+}
+	#content .portfolio-item-twitter img{
+		width: 62px; height: 59px; padding: 0 0 0 0;
 	}
 
 #content .portfolio-item-email {

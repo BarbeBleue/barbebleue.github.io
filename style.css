@@ -103,6 +103,9 @@ ul#nav {
 		#content a:hover {
 			color: #671111;
 		}
+	#content iframe {
+		display: inline-block; margin: 25px 0 0 0; float: right; padding: 45px 0 0 15px; border-style: solid; border-color: #556;
+	}
 
 #cv {
 	background: url(images/content-bg.png) repeat-y;
@@ -219,7 +222,7 @@ div.panel.show {
 		
 #footer {
 	background: url(images/footer-bg.png) no-repeat; padding: 40px 0 0 0;
-	overflow: hidden; margin: 0 0 30px 0;
+	overflow: hidden; margin: 0 0 0 0;
 }
 	#footer p#copyright {
 		font-size: 12px; float: left; margin: 0 0 0 30px; color: #b8b6b2;

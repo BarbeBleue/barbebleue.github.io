@@ -28,22 +28,52 @@
 		    <p id=""><a href="#"><img src="images/SimonCoteDuchesne.png" alt="Simon Côté-Duchesne"/></a></p>
 		    <ul id="nav">
 		    	<a href="index.html"><li>Accueil</li></a>
-		    	<a href="experiences.html"><li>Expérience</li></a>
+		    	<a href="experiences.html"><li>Expériences</li></a>
 		    	<a href="curriculumvitae.html"><li>C.V.</li></a>
 		    	<a href="contact.html"><li>Contact</li></a>
+
 		    </ul>
 
 		    <div id="header">
-			    <h1> Voici mon curriculum vitae </h1>
-			    <h2> si vous avez des questions, <a href="contact.html">Contactez-moi</a>!</h2>
+			    <h1> Rien de plus simple que de me contacter! </h1>
+			    <h2> utilisez n'importe lequel des moyens ci-dessous. </h2>
 			    <p class="btn"><img src="images/home-header-btn.png"></p>
 		    </div>
-			<div id="cv">
-				<h4><a href="./files/CVSimonCoteDuchesne.pdf" target="_blank">Ouvrir mon C.V. dans un onglet</a></h4>
-				<br><h4><a href="./files/CVSimonCoteDuchesne.pdf" download>Télécharger mon C.V.</a></h4>
-				<object data="./files/CVSimonCoteDuchesne.pdf#view=FitH" type="application/pdf" class="content_obj" title="Curriculum Vitae" >
-  					<p>Oups! Il devrait y avoir un visionneur ici! Vous pouvez toujours<a href="./files/CVSimonCoteDuchesne.pdf">télécharger</a> mon CV!</p>
-				</object>				
+			<div id="content">
+				<div class="portfolio-item">
+					<p>Par courriel :</p><a href="mailto:simoncoteduchesne@gmail.com">simoncoteduchesne@gmail.com</a>
+				</div>
+				<div class="portfolio-item">
+					<p>Par téléphone :</p><a href="tel:+14185573003">418-557-3003</a>
+				</div>
+				<br><br><br><br><h3>Par formulaire :</h3>
+				<div class="portfolio-item-email">
+					<form id="contact_form" action="https://formspree.io/simoncoteduchesne@gmail.com" method="POST" enctype="multipart/form-data">
+						<div class="row">
+							<label for="name">Nom :</label>
+							<input id="name" class="input" name="name" type="text" value="" size="30" />
+						</div><br>
+						<div class="row">
+							<label for="email">Courriel :</label>
+							<input id="email" class="input" name="email" type="email" value="" size="50" />
+						</div><br>
+						<div class="row">
+							<label for="message">Votre message :</label><br/><br>
+							<textarea id="message" class="input" type="text" name="message" rows="7" cols="105"></textarea><br />
+						</div>
+						<br><input id="submit_button" type="submit" value="Envoyer le courriel" />
+					</form>
+				</div>
+				<h3>Par les médias sociaux :</h3>
+				<div class="portfolio-item">
+					<a href="https://www.linkedin.com/in/simon-cote-8228a537" target="_blank"><img src="images/linkedin.png" alt="linkedin"></a>
+				</div>
+				<div class="portfolio-item">
+					<a href="https://www.facebook.com/simon.cote.7374" target="_blank"><img src="images/facebook.png" alt="facebook"></a>
+				</div>				
+				<div class="portfolio-item-twitter">
+					<a id="twitter" href="https://twitter.com/Simon_CoteDuch" target="_blank"><img src="images/twitter.png" alt="twitter"></a>
+				</div>
 			</div>
 			<div id="footer">
 				<p id="copyright">&copy; Simon Côté-Duchesne</p>
@@ -52,7 +82,7 @@
 				<a id="social" href="https://www.facebook.com/simon.cote.7374" target="_blank"><img src="images/facebook.png" alt="facebook"></a>
 				<a id="social" href="https://www.linkedin.com/in/simon-cote-8228a537" target="_blank"><img src="images/linkedin.png" alt="linkedin"></a>
 				<a id="social" href="https://github.com/SimonCoteDuchesne" target="_blank"><img src="images/github.png" alt="github"></a>
-				<p id="menu"><br><a href="index.html">Accueil</a> | <a href="experiences.html">Expérience</a> | <a href="curriculumvitae.html">CV</a> | <a href="contact.html">Contact</a></p>
+				<p id="menu"><br><a href="index.html">Accueil</a> | <a href="experiences.html">Expériences</a> | <a href="curriculumvitae.html">CV</a> | <a href="contact.html">Contact</a></p>
 			</div>
     	</div>
 	</body>

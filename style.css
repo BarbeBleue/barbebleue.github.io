@@ -16,7 +16,7 @@ body {
 }
 
 ul#nav {
-	width: 940px; list-style: none; overflow: hidden; margin: -134px auto 25px auto;
+	width: 940px; list-style: none; overflow: hidden; margin: -134px auto 10px auto;
 }
 	ul#nav a {
 		width: 126px; height: 33px; float: left; padding: 13px 0 0 0;
@@ -35,13 +35,18 @@ ul#nav {
 		ul#nav a:nth-child(4) {
 			margin: 0;
 		}
-
 		ul#nav li a {
 			color: #616369; text-decoration: none;
 		}
 			ul#nav li a:hover {
 				color: #a12121;
 			}
+p.language{
+	position: relative; right: -750px; top: 40px; display:block; overflow: hidden; color: white;
+}
+	p.language a{
+		color: white;
+	}
 
 #header {
 	height: 244px; padding: 52px 0 0 57px;
@@ -52,7 +57,6 @@ ul#nav {
 	height: 91px; padding: 52px 0 0 57px;
 	background: url(images/inner-header.jpg);
 }
-
 	#header h1 {
 		font: 38px Georgia, Serif; color: #f2f0eb; letter-spacing: 2px; margin: 30px 0 20px 0;
 		text-shadow: 0px 3px 3px #494949;
@@ -63,18 +67,9 @@ ul#nav {
 	}
 	#header p.btn{
 		position: relative; right: -200px; top: -60px; display:block; overflow: hidden;
-	}
-	#header a:link{
+	}	
+	#header a{
 		color: white;
-	}
-	#header a:visited{
-		color: pink;
-	}
-	#header a:hover{
-		color: lightblue;
-	}
-	#header a:active{
-		color: black;
 	}
 	
 #content {

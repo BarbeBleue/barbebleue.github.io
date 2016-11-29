@@ -571,8 +571,12 @@ function cigar()
     modelview = mult(modelview, translate(0,20.0,21));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.35,.06, .08));
+    modelview = mult(modelview, scale(0.20,.03, .04));
     sphere.render();
+    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(0,0,-5));
+    modelview = mult(modelview, scale(2,2, .5));
+    cylinder.render();
 
     gl.uniform1i(noTexLoc, 0);
 }
@@ -678,10 +682,10 @@ function cigarBurn()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 4);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0,20.0,24));
+    modelview = mult(modelview, translate(0,20.0,22.75));
     modelview = mult(modelview, rotate(0.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.1,.1, .1));
+    modelview = mult(modelview, scale(.07,.06, .04555));
     cylinder.render(); 
 
     gl.uniform1i(noTexLoc, 0);
@@ -960,11 +964,11 @@ function goldPile()
     box.render();
     modelview = mult(modelview, translate(0.0,30,0));
     box.render();
-    modelview = mult(modelview, translate(0.0,-8,-12));
+    modelview = mult(modelview, translate(0.0,-8,-10));
     box.render();
     modelview = mult(modelview, translate(0.0,-15,0));
     box.render();
-    modelview = mult(modelview, translate(0.0,8,-12));
+    modelview = mult(modelview, translate(0.0,8,-10));
     box.render();
 
     gl.uniform1i(noTexLoc, 0);
@@ -1481,7 +1485,7 @@ function initTexture()
     eyes.image.onload = function () {
         handleLoadedTexture(eyes)
     }
-    eyes.image.src = "Textures/eyes.jpg";
+    eyes.image.src = "Textures/Eyes.jpg";
 
     burn = gl.createTexture();
     burn.isloaded = false; 

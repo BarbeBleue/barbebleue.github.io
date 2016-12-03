@@ -2,7 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bender</title>
+<title>Space Bender</title>
+
+<script type="x-shader/x-vertex" id="vshaderbox">
+     uniform mat4 projection;
+     uniform mat4 modelview;
+
+     attribute vec3 vcoords;
+     attribute vec3 vnormal;
+     attribute vec2 vtexcoord;
+
+     varying vec3 fCoords;
+
+     void main() {
+        vec2 tmp = vtexcoord;
+        vec3 tmp2 = vnormal;
+   // inserted only to map texcoord and normal in this shader 
+   // (required since models uses texture coordinates even though 
+   //   we will not use them in this shader)
+
+        vec4 eyeCoords = modelview * vec4(vcoords,1.0);
+        gl_Position = projection * eyeCoords;
+        fCoords = vcoords;//gl_Position.xyz;
+     }
+</script>
+
+<script type="x-shader/x-fragment" id="fshaderbox">
+     precision mediump float;
+
+     varying vec3 fCoords;
+
+     uniform samplerCube skybox;
+
+     void main() {
+          gl_FragColor = textureCube(skybox, fCoords);
+     }
+</script>
 
 <script type="x-shader/x-vertex" id="vshader">
   uniform mat4 projection;
@@ -86,20 +121,10 @@
 </head>
 <body style="background-color:#DDD">
 
-<h1>WebGL - Bender et mod&egrave;le de Phong</h1>
-
-<h2>Utilisez la souris pour faire tourner les objets</h2>
 <noscript><hr><h3>This page requires Javascript and a web browser that supports WebGL</h3><hr></noscript>
 
-<table>
-  <tr>
-    <th>
-      <canvas width=800 height=800 id="glcanvas" style="background-color:blue"></canvas>
-    </th>
-    <th>
-      <img src="BenderParts.jpg" alt="Bender"/>
-    </th>
-</table>
+  <canvas width=800 height=800 id="glcanvas" style="background-color:blue"></canvas>
+
 
 </body>
 </html>

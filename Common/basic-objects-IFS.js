@@ -1630,3 +1630,22 @@ function gold(side) {
       indices: new Uint16Array(indices)
    }
 }
+
+function createModelbox(modelData) {  // For creating the environment box.
+    var model = {};
+    model.coordsBuffer = gl.createBuffer();
+    model.indexBuffer = gl.createBuffer();
+    model.count = modelData.indices.length;
+    gl.bindBuffer(gl.ARRAY_BUFFER, model.coordsBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, modelData.vertexPositions, gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.indexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, modelData.indices, gl.STATIC_DRAW);
+    model.render = function () {
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.coordsBuffer);
+        gl.vertexAttribPointer(aCoordsbox, 3, gl.FLOAT, false, 0, 0);
+        gl.uniformMatrix4fv(uModelviewbox, false, flatten(modelview));
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+        gl.drawElements(gl.TRIANGLES, this.count, gl.UNSIGNED_SHORT, 0);
+    }
+    return model;
+}

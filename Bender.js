@@ -6,6 +6,12 @@ var CoordsLoc;
 var NormalLoc;
 var TexCoordLoc;
 
+var aCoordsbox;
+var aNormalbox;
+var aTexCoordbox;
+var uModelviewbox;
+var uProjectionbox;
+
 var ProjectionLoc;
 var ModelviewLoc;
 var NormalMatrixLoc;
@@ -13,7 +19,6 @@ var NormalMatrixLoc;
 var cursor = [];
 var benderLegsFlaFla = [];
 var benderArmsFlaFla = [];
-var benderArrows = [];
 
 var projection;
 var modelview;
@@ -31,7 +36,7 @@ var quartersphereinside, quartersphereoutside;
 
 var prog; 
 
-var lightPosition = vec4(20.0, 20.0, 100.0, 1.0);
+var lightPosition = vec4(20.0, 20.0, 40.0, 1.0);
 
 var lightAmbient = vec4(1.0, 1.0, 1.0, 1.0);
 var lightDiffuse = vec4(1.0, 1.0, 1.0, 1.0);
@@ -49,11 +54,11 @@ var greyAmbient = vec4(0.3, 0.3, 0.3, 1.0);
 var greyDiffuse = vec4(0.3, 0.3, 0.3, 1.0);
 var greySpecular = vec4(0.5, 0.5, 0.5, 1.0);
 
-var greenAmbient = vec4(0, 0.7, 0, 1);
-var greenDiffuse = vec4(0.3, 0.3, 0.3, 1);
-var greenSpecular = vec4(0.5, 0.5, 0.5, 1);
+var greenAmbient = vec4(0, 1, 0, 1);
+var greenDiffuse = vec4(0.75, 0.75, 0.75, 1);
+var greenSpecular = vec4(0.9, 0.9, 0.9, 1);
 
-var goldAmbient = vec4(.9, .9, .5, 1);
+var goldAmbient = vec4(.9, .9, 0, 1);
 var goldDiffuse = vec4(0.5, 0.5, 0, 1);
 var goldSpecular = vec4(0.5, 0.5, 0.5, 1);
 
@@ -72,16 +77,12 @@ var headTopId = 5; var antennaId = 6; var antennaTopId = 7; var antennaPopId = 8
 var rightArmId = 10; var leftHandId = 11; var rightHandID = 12; var leftLegId = 13; var rightLegId = 14;
 var leftFootId = 15; var rightFootId = 16; var leftHandDiskId = 17; var rightHandDiskId = 18; var leftFootDiskId = 19;
 var rightFootDiskId = 20; var leftLegJointsId = 21; var rightLegJointsId = 22; var leftArmJointsId = 23; var rightArmJointsId = 24;
-var legLeftClip1Id = 25; var legLeftClip2Id = 26; var legRightClip1Id = 27; var legRightClip2Id = 28; var handLeftfinger1Id = 29;
-var handLeftfinger2Id = 30; var handLeftfinger3Id = 31; var handRightfinger1Id = 32; var handRightfinger2Id = 33; var handRightfinger3Id = 34;
-var VisiereId = 35; var leftEyeId = 36; var rightEyeId = 37; var eyeHolesId = 38; var mouthPieceId = 39; 
-var cigarId = 40; var leftArmPitId = 41; var rightArmPitId = 42; var neckHoleId = 43; var antennaHoleId = 44;
-var cigarBurnId = 45; var torsoHoleId = 46; var neckArrowId = 47; var antennaArrowId = 48; var cigarArrowId = 49;
-var leftLegArrowId = 50; var rightLegArrowId = 51; var beer1Id = 52; var beer2Id = 53; var beer3Id = 54;
-var beer4Id = 55; var beer5Id = 56; var popcornBoxId = 57; var popcornId = 58; var torsoArrowId = 59;
-var goldPileId = 60; var TorsoDoorId = 61;
+var handLeftfinger1Id = 25; var handLeftfinger2Id = 26; var handLeftfinger3Id = 27; var handRightfinger1Id = 28; var handRightfinger2Id = 29;
+var handRightfinger3Id = 30; var VisiereId = 31; var leftEyeId = 32; var rightEyeId = 33; var eyeHolesId = 34;
+var mouthPieceId = 35; var cigarId = 36; var cigarBurnId = 37; var beer1Id = 38; var beer2Id = 39; 
+var beer3Id = 40; var beer4Id = 41; var beer5Id = 42; var popcornBoxId = 43; var popcornId = 44; 
 
-var numNodes = 62;
+var numNodes = 45;
 
 for( var i=0; i<numNodes; i++) figure[i] = createNode( null, null, null);
 
@@ -89,8 +90,13 @@ var noTexLoc;
 
 var metal, mouth, cigarTex, eyes, burn, popcornBoxTex, goldTex, popcornTex;
 
+var skybox, progbox, uEnvbox, texIDmap0;
+var img = new Array(6);
+var ct = 0;
+
 function torso()
 {
+    gl.useProgram(prog);
     whiteMaterial();
 
     gl.uniform1i(noTexLoc, 1);
@@ -106,6 +112,17 @@ function torso()
     modelview = mult(modelview, scale(1.1, 1.1, 1.75));
 
     cylinder.render();    
+
+    greyMaterial();
+
+    modelview = initialmodelview;
+    modelview = mult(modelview, translate(3,5,4.25));
+    modelview = mult(modelview, rotate(30.0, 0, 1, 0));
+    normalMatrix = extractNormalMatrix(modelview);
+    modelview = mult(modelview, scale(0.08,0.08, 0.065));
+    cylinder.render();
+
+    whiteMaterial();
 }
 
 function neck()
@@ -123,7 +140,7 @@ function neck()
 function head()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,22.0,0.0));
+    modelview = mult(modelview, translate(0.0,19.0,0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.65, 0.65, 0.75));
@@ -133,7 +150,7 @@ function head()
 function headTop()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,25.50,0.0));
+    modelview = mult(modelview, translate(0.0,22.50,0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.325, 0.325, 0.325));
@@ -163,7 +180,7 @@ function shoulderLeft()
 function rightHand()
 {
     modelview = initialmodelview; 
-    modelview = mult(modelview, translate(-24.0, 10.0, 0.0));
+    modelview = mult(modelview, translate(-21.0, 10.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview); 
     modelview = mult(modelview, scale(12, 12, 1.25));
@@ -173,7 +190,7 @@ function rightHand()
 function leftHand()
 {
     modelview = initialmodelview; 
-    modelview = mult(modelview, translate(24.0, 10.0, 0.0));
+    modelview = mult(modelview, translate(21.0, 10.0, 0.0));
     modelview = mult(modelview, rotate(270.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(12, 12, 1.25));
@@ -183,7 +200,7 @@ function leftHand()
 function leftArm()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(16.5, 10.0, 0.0));
+    modelview = mult(modelview, translate(13.5, 10.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.3, 0.3, 1.50));
@@ -193,7 +210,7 @@ function leftArm()
 function rightArm()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-16.5, 10.0, 0.0));
+    modelview = mult(modelview, translate(-13.5, 10.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.3, 0.3, 1.50));
@@ -203,7 +220,7 @@ function rightArm()
 function leftFoot()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(3.0, -27.25, 0.0));
+    modelview = mult(modelview, translate(3.0, -22.25, 0.0));
     modelview = mult(modelview, rotate(270.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(3, 3, 10));
@@ -213,7 +230,7 @@ function leftFoot()
 function rightFoot()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-3.0, -27.25, 0.0));
+    modelview = mult(modelview, translate(-3.0, -22.25, 0.0));
     modelview = mult(modelview, rotate(270.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(3, 3, 10));
@@ -223,7 +240,7 @@ function rightFoot()
 function leftLeg()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(3.0, -18.0, 0.0));
+    modelview = mult(modelview, translate(3.0, -13.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.3, 0.3, 1.88));
@@ -235,7 +252,7 @@ function rightLeg()
     whiteMaterial();
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-3.0, -18.0, 0.0));
+    modelview = mult(modelview, translate(-3.0, -13.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.3, 0.3, 1.88));
@@ -245,7 +262,7 @@ function rightLeg()
 function antenna()
 {
     modelview = initialmodelview; 
-    modelview = mult(modelview, translate(0.0,32.0,0.0));
+    modelview = mult(modelview, translate(0.0,27.0,0.0));
     modelview = mult(modelview, rotate(270.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.05, 0.05, 0.1));
@@ -255,7 +272,7 @@ function antenna()
 function antennaPop()
 {
     modelview = initialmodelview; 
-    modelview = mult(modelview, translate(0.0,29.25,0.0));
+    modelview = mult(modelview, translate(0.0,26.25,0.0));
     modelview = mult(modelview, rotate(270.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(1.0, 1.0, 2.0));
@@ -265,7 +282,7 @@ function antennaPop()
 function antennaTop()
 {
     modelview = initialmodelview; 
-    modelview = mult(modelview, translate(0.0,33.0,0.0));
+    modelview = mult(modelview, translate(0.0,28.0,0.0));
     modelview = mult(modelview, rotate(270.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.04, 0.04, 0.04));
@@ -275,7 +292,7 @@ function antennaTop()
 function leftFootDisk()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(3.0, -31.0, 0.0));
+    modelview = mult(modelview, translate(3.0, -26.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.30, 0.30, 10));
@@ -285,7 +302,7 @@ function leftFootDisk()
 function rightFootDisk()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-3.0, -31.0, 0.0));
+    modelview = mult(modelview, translate(-3.0, -26.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.30, 0.30, 10));
@@ -295,7 +312,7 @@ function rightFootDisk()
 function leftHandDisk()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(27.15, 10.0, 0.0));
+    modelview = mult(modelview, translate(24.15, 10.0, 0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.30, 0.30, 10));
@@ -305,7 +322,7 @@ function leftHandDisk()
 function rightHandDisk()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-27.15, 10.0, 0.0));
+    modelview = mult(modelview, translate(-24.15, 10.0, 0.0));
     modelview = mult(modelview, rotate(270.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.30, 0.30, 10));
@@ -314,7 +331,7 @@ function rightHandDisk()
 
 function leftLegJoints()
 {
-    cursor = [3.0, -30.55, 0.0];
+    cursor = [3.0, -25.55, 0.0];
     for (var i = 0; i<6; ++i)
     {
         cursor = [cursor[0], cursor[1]+3.10, cursor[2]];
@@ -334,7 +351,7 @@ function leftLegJoints()
 
 function rightLegJoints()
 {
-    cursor = [-3.0, -30.55, 0.0];
+    cursor = [-3.0, -25.55, 0.0];
     for (var i = 0; i<6; ++i)
     {
         cursor = [cursor[0], cursor[1]+3.10, cursor[2]];
@@ -354,7 +371,7 @@ function rightLegJoints()
 
 function leftArmJoints()
 {
-    cursor = [5.95, 10.0, 0.0];
+    cursor = [2.95, 10.0, 0.0];
     for(var i = 0; i<6; ++i)
     {
         cursor = [cursor[0]+3, cursor[1], cursor[2]];
@@ -374,7 +391,7 @@ function leftArmJoints()
 
 function rightArmJoints()
 {
-    cursor = [-6.0, 10.0, 0.0];
+    cursor = [-3.0, 10.0, 0.0];
     for(var i = 0; i<6; ++i)
     {
         cursor = [cursor[0]-3, cursor[1], cursor[2]];
@@ -392,70 +409,10 @@ function rightArmJoints()
     }
 }
 
-function legLeftClip1()
-{
-    gl.uniform1i(noTexLoc, 0);
-    greyMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(2.30,-8.2,0.0));
-    modelview = mult(modelview, rotate(0.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.05, .08, .10));
-    box.render();   
-
-    gl.uniform1i(noTexLoc, 1);
-}
-
-function legLeftClip2()
-{
-    gl.uniform1i(noTexLoc, 0);
-    greyMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(3.70,-8.2,0.0));
-    modelview = mult(modelview, rotate(0.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.05, .08, .10));
-    box.render();   
-
-    gl.uniform1i(noTexLoc, 1);
-}
-
-function legRightClip1()
-{
-    gl.uniform1i(noTexLoc, 0);
-    greyMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(-2.3,-8.2,0.0));
-    modelview = mult(modelview, rotate(0.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.05, .08, .10));
-    box.render(); 
-
-    gl.uniform1i(noTexLoc, 1);
-}
-
-function legRightClip2()
-{
-    gl.uniform1i(noTexLoc, 0);
-    greyMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(-3.7,-8.2,0.0));
-    modelview = mult(modelview, rotate(0.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.05, .08, .10));
-    box.render(); 
-
-    gl.uniform1i(noTexLoc, 1);
-}
-
 function handLeftfinger1()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(28.0,11.5,0.0));
+    modelview = mult(modelview, translate(25.0,11.5,0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
@@ -465,8 +422,8 @@ function handLeftfinger1()
 function handLeftfinger2()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(28.0,9.25,1.25));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(25.0,9.25,1.25));
+    modelview = mult(modelview, rotate(45.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
     cylinder.render(); 
@@ -475,8 +432,8 @@ function handLeftfinger2()
 function handLeftfinger3()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(28.0,9.25,-1.25));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(25.0,9.25,-1.25));
+    modelview = mult(modelview, rotate(135.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
     cylinder.render();
@@ -485,7 +442,7 @@ function handLeftfinger3()
 function handRightfinger1()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-28.0,11.5,0.0));
+    modelview = mult(modelview, translate(-25.0,11.5,0.0));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
@@ -495,8 +452,8 @@ function handRightfinger1()
 function handRightfinger2()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-28.0,9.25,1.25));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(-25.0,9.25,1.75));
+    modelview = mult(modelview, rotate(115.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
     cylinder.render(); 
@@ -505,8 +462,8 @@ function handRightfinger2()
 function handRightfinger3()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-28.0,9.25,-1.25));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(-25.0,9.25,-1.75));
+    modelview = mult(modelview, rotate(65.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .18));
     cylinder.render();
@@ -515,7 +472,7 @@ function handRightfinger3()
 function Visiere()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,24.0,2.75));
+    modelview = mult(modelview, translate(0.0,21.0,2.75));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.15,.15, .5));
@@ -531,10 +488,10 @@ function leftEye()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 3);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(1.4,24.0,8));
+    modelview = mult(modelview, translate(1.2,21.0,2));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.35,.06, .08));
+    modelview = mult(modelview, scale(0.2,.08, .1));
     sphere.render();
 
     gl.uniform1i(noTexLoc, 0);
@@ -550,10 +507,10 @@ function rightEye()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 3);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(-1.4,24.0,8));
+    modelview = mult(modelview, translate(-1.2,21.0,2));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.35,.06, .08));
+    modelview = mult(modelview, scale(0.20,.08, .1));
     sphere.render();
 
     gl.uniform1i(noTexLoc, 0);
@@ -561,6 +518,7 @@ function rightEye()
 
 function cigar()
 {
+    whiteMaterial();
     gl.uniform1i(noTexLoc, 1);
 
     gl.activeTexture(gl.TEXTURE2);
@@ -568,8 +526,8 @@ function cigar()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 2);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0,20.0,21));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
+    modelview = mult(modelview, translate(1,17.0,4));
+    modelview = mult(modelview, rotate(110.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.20,.03, .04));
     sphere.render();
@@ -586,7 +544,7 @@ function eyeHoles()
     blackMaterial();
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,24.0,2.6));
+    modelview = mult(modelview, translate(0.0,21.0,2.6));
     modelview = mult(modelview, rotate(90.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.145,.145, .45));
@@ -604,71 +562,11 @@ function mouthPiece()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 1);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,20,2));
+    modelview = mult(modelview, translate(0.0,17,1.9));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(.25,.14, .145));
+    modelview = mult(modelview, scale(.25,.15, .145));
     sphere.render();
-}
-
-function leftArmPit()
-{
-    blackMaterial();
-
-    modelview = initialmodelview; 
-    modelview = mult(modelview, translate(5,10.0,0.0));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.3, 0.3, 0.1));
-
-    cylinder.render();  
-
-    whiteMaterial();
-}
-
-function rightArmPit()
-{
-    blackMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(-5,10.0,0.0));
-    modelview = mult(modelview, rotate(270.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.3, 0.3, 0.1));
-
-    cylinder.render();  
-
-    whiteMaterial();
-}
-
-function antennaHole()
-{
-    blackMaterial();
-
-    modelview = initialmodelview; 
-    modelview = mult(modelview, translate(0.0,28.25,0.0));
-    modelview = mult(modelview, rotate(270.0, 1, 0, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.1, 0.1, 0.1));
-
-    cylinder.render();  
-
-    whiteMaterial();
-}
-
-function neckHole()
-{
-    blackMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,12,0.0));
-    modelview = mult(modelview, rotate(270.0, 1, 0, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.6, 0.6,0.5));
-
-    cylinder.render();  
-
-    whiteMaterial();
 }
 
 function cigarBurn()
@@ -682,8 +580,8 @@ function cigarBurn()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 4);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0,20.0,22.75));
-    modelview = mult(modelview, rotate(0.0, 0, 1, 0));
+    modelview = mult(modelview, translate(1.6,17.0,5.75));
+    modelview = mult(modelview, rotate(20.0, 0, 1, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(.07,.06, .04555));
     cylinder.render(); 
@@ -691,141 +589,12 @@ function cigarBurn()
     gl.uniform1i(noTexLoc, 0);
 }
 
-function torsoHole()
-{
-    blackMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,5.0,1.75));
-    modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.9, 0.8, 1.25));
-
-    cylinder.render();  
-    whiteMaterial();
-}
-
-function neckArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [0, 15, 0];
-    for (var i = 0; i<6; ++i)
-    {
-        cursor = [cursor[0], cursor[1]+0.5, cursor[2]];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<6; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.010, 0.010, 0.025));
-        box.render();
-    }
-}
-
-function antennaArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [0, 28, 0];
-    for (var i = 0; i<6; ++i)
-    {
-        cursor = [cursor[0], cursor[1]+0.5, cursor[2]];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<6; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.010, 0.010, 0.025));
-        box.render();
-    }
-}
-
-function cigarArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [0, 20, 3];
-    for (var i = 0; i<30; ++i)
-    {
-        cursor = [cursor[0], cursor[1], cursor[2]+0.5];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<30; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.01, 0.025, 0.01));
-        box.render();
-    }
-}
-
-function leftLegArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [3, -3, 0];
-    for (var i = 0; i<10; ++i)
-    {
-        cursor = [cursor[0], cursor[1]-0.5, cursor[2]];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<10; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.010, 0.010, 0.025));
-        box.render();
-    }
-}
-
-function rightLegArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [-3, -3, 0];
-    for (var i = 0; i<10; ++i)
-    {
-        cursor = [cursor[0], cursor[1]-0.5, cursor[2]];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<10; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.010, 0.010, 0.025));
-        box.render();
-    }
-}
-
 function beer1()
 {
     greenMaterial();
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,1.5,12));
+    modelview = mult(modelview, translate(25.5,10,0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.25, 0.25, .5));
@@ -836,7 +605,7 @@ function beer1()
 function beer2()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,4,12));
+    modelview = mult(modelview, translate(25.5,12.5,0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.125, 0.125, .125));
@@ -847,7 +616,7 @@ function beer2()
 function beer3()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,5.5,12));
+    modelview = mult(modelview, translate(25.5,14,0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.1, 0.1, .3));
@@ -858,7 +627,7 @@ function beer3()
 function beer4()
 {
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,7,12));
+    modelview = mult(modelview, translate(25.5,15.5,0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.125, 0.125, .05));
@@ -872,7 +641,7 @@ function beer5()
     greyMaterial();
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,2,12));
+    modelview = mult(modelview, translate(25.5,10.5,0));
     modelview = mult(modelview, rotate(90.0, 1, 0, 0));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.275, 0.225, .25));
@@ -892,7 +661,7 @@ function popcornBox()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 5);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,2,19));
+    modelview = mult(modelview, translate(-26.5,10.5,0));
     modelview = mult(modelview, rotate(270.0, 0, 0, 1));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.6, 0.45, .25));
@@ -911,64 +680,11 @@ function popcorn()
     gl.uniform1i(gl.getUniformLocation(prog, "texture"), 6);
 
     modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,5,19));
+    modelview = mult(modelview, translate(-26.5,13.5,0));
     modelview = mult(modelview, rotate(270.0, 0, 0, 1));
     normalMatrix = extractNormalMatrix(modelview);
     modelview = mult(modelview, scale(0.1, 0.45, .225));
 
-    box.render();
-
-    gl.uniform1i(noTexLoc, 0);
-}
-
-function torsoArrow()
-{
-    greyMaterial();
-    benderArrows = [];
-
-    cursor = [0, -1, 3];
-    for (var i = 0; i<50; ++i)
-    {
-        cursor = [cursor[0], cursor[1], cursor[2]+0.5];
-        benderArrows.push(cursor);
-    }
-
-    for (var i = 0; i<50; ++i)
-    {      
-        modelview = initialmodelview;
-        modelview = mult(modelview, translate(benderArrows[i]));
-        modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-        normalMatrix = extractNormalMatrix(modelview);
-        modelview = mult(modelview, scale(0.01, 0.025, 0.01));
-        box.render();
-    }
-}
-
-function goldPile()
-{
-    goldMaterial();
-
-    gl.uniform1i(noTexLoc, 1);
-
-    gl.activeTexture(gl.TEXTURE7);
-    gl.bindTexture(gl.TEXTURE_2D, goldTex);
-    gl.uniform1i(gl.getUniformLocation(prog, "texture"), 7);
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(0.0,-0.5,25));
-    modelview = mult(modelview, rotate(90.0, 1, 0, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.5, 0.1, 0.11));
-    box.render();
-    modelview = mult(modelview, translate(0.0,-15,0));
-    box.render();
-    modelview = mult(modelview, translate(0.0,30,0));
-    box.render();
-    modelview = mult(modelview, translate(0.0,-8,-10));
-    box.render();
-    modelview = mult(modelview, translate(0.0,-15,0));
-    box.render();
-    modelview = mult(modelview, translate(0.0,8,-10));
     box.render();
 
     gl.uniform1i(noTexLoc, 0);
@@ -991,24 +707,16 @@ function torsoDoor()
     modelview = mult(modelview, scale(0.05, 1.2555, 0.8));
     box.render();
 
-    greyMaterial();
-
-    modelview = initialmodelview;
-    modelview = mult(modelview, translate(-3.5,5,11));
-    modelview = mult(modelview, rotate(90.0, 0, 1, 0));
-    normalMatrix = extractNormalMatrix(modelview);
-    modelview = mult(modelview, scale(0.08,0.08, 0.065));
-    cylinder.render();
 
     gl.uniform1i(noTexLoc, 0);
 }
 
 function render()
 {
-    gl.clearColor(0.79, 0.76, 0.27, 1);
+    gl.clearColor(1, 1, 1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    projection = perspective(90.0, 1.0, 0.5, 200.0);
+    projection = perspective(90.0, 1.0, 0.5, 2000.0);
 
     flattenedmodelview = rotator.getViewMatrix();
     modelview = unflatten(flattenedmodelview);
@@ -1030,8 +738,27 @@ function render()
 	gl.enableVertexAttribArray(CoordsLoc);
     gl.enableVertexAttribArray(NormalLoc);
     gl.disableVertexAttribArray(TexCoordLoc); 
-
     traverse(torsoId);
+
+    if (texIDmap0.isloaded )
+    { 
+        modelview = initialmodelview;
+        gl.useProgram(progbox);
+
+        gl.uniformMatrix4fv(uProjectionbox, false, flatten(projection));
+
+
+
+        gl.enableVertexAttribArray(aCoordsbox);
+        gl.disableVertexAttribArray(aNormalbox); 
+        gl.disableVertexAttribArray(aTexCoordbox);
+
+        gl.activeTexture(gl.TEXTURE8);
+        gl.bindTexture(gl.TEXTURE_CUBE_MAP, texIDmap0);
+        gl.uniform1i(uEnvbox, 8);
+
+        skybox.render();
+    }
 }
 
 function unflatten(matrix) 
@@ -1111,7 +838,8 @@ function createModel(modelData)
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, modelData.indices, gl.STATIC_DRAW);
 
-    model.render = function () {
+    model.render = function ()
+    {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.coordsBuffer);
         gl.vertexAttribPointer(CoordsLoc, 3, gl.FLOAT, false, 0, 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
@@ -1135,20 +863,23 @@ function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
     var vsh = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vsh, vertexShaderSource);
     gl.compileShader(vsh);
-    if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS)) {
+    if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS
+    {
         throw "Error in vertex shader:  " + gl.getShaderInfoLog(vsh);
     }
     var fsh = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fsh, fragmentShaderSource);
     gl.compileShader(fsh);
-    if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) {
+    if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) 
+    {
         throw "Error in fragment shader:  " + gl.getShaderInfoLog(fsh);
     }
     var prog = gl.createProgram();
     gl.attachShader(prog, vsh);
     gl.attachShader(prog, fsh);
     gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) 
+    {
         throw "Link error in program:  " + gl.getProgramInfoLog(prog);
     }
     return prog;
@@ -1160,7 +891,8 @@ function getTextContent(elementID)
     var fsource = "";
     var node = element.firstChild;
     var str = "";
-    while (node) {
+    while (node) 
+    {
         if (node.nodeType == 3)
             str += node.textContent;
         node = node.nextSibling;
@@ -1178,7 +910,7 @@ function initNodes(Id)
             figure[torsoId] = createNode(torso, neckId, shoulderLeftId);
         break;
         case neckId :
-            figure[neckId] = createNode(neck, headId, neckHoleId);
+            figure[neckId] = createNode(neck, headId, null);
         break;
         case shoulderLeftId :
             figure[shoulderLeftId] = createNode(shoulderLeft, shoulderRightId, leftArmId);
@@ -1238,29 +970,16 @@ function initNodes(Id)
             figure[rightFootDiskId] = createNode(rightFootDisk, null, rightLegJointsId);
         break;
         case leftLegJointsId :
-            figure[leftLegJointsId] = createNode(leftLegJoints, null, legLeftClip1Id);
+            figure[leftLegJointsId] = createNode(leftLegJoints, null, null);
         break;
         case rightLegJointsId :
-            figure[rightLegJointsId] = createNode(rightLegJoints, null, legRightClip1Id);
+            figure[rightLegJointsId] = createNode(rightLegJoints, null, null);
         break;
         case leftArmJointsId :
             figure[leftArmJointsId] = createNode(leftArmJoints, null, handLeftfinger1Id);
         break;
         case rightArmJointsId :
             figure[rightArmJointsId] = createNode(rightArmJoints, null, handRightfinger1Id);
-        break;
-        case legLeftClip1Id :
-            figure[legLeftClip1Id] = createNode(legLeftClip1, legLeftClip2Id, null);
-        break;
-        case legLeftClip2Id :
-            figure[legLeftClip2Id] = createNode(legLeftClip2, null, rightLegArrowId);
-        break;
-        case legRightClip1Id :
-            figure[legRightClip1Id] = createNode(legRightClip1, legRightClip2Id, null);
-        break;
-        case legRightClip2Id :
-            figure[legRightClip2Id] = createNode(legRightClip2, null, leftLegArrowId);
-        break;
         case handLeftfinger1Id :
             figure[handLeftfinger1Id] = createNode(handLeftfinger1, handLeftfinger2Id, null);
         break;
@@ -1268,7 +987,7 @@ function initNodes(Id)
             figure[handLeftfinger2Id] = createNode(handLeftfinger2, handLeftfinger3Id, null);
         break;
         case handLeftfinger3Id :
-            figure[handLeftfinger3Id] = createNode(handLeftfinger3, null, leftArmPitId);
+            figure[handLeftfinger3Id] = createNode(handLeftfinger3, null, null);
         break;
         case handRightfinger1Id :
             figure[handRightfinger1Id] = createNode(handRightfinger1, handRightfinger2Id, null);
@@ -1277,7 +996,7 @@ function initNodes(Id)
             figure[handRightfinger2Id] = createNode(handRightfinger2, handRightfinger3Id, null);
         break;
         case handRightfinger3Id :
-            figure[handRightfinger3Id] = createNode(handRightfinger3, null, rightArmPitId);
+            figure[handRightfinger3Id] = createNode(handRightfinger3, null, null);
         break;
         case VisiereId :
             figure[VisiereId] = createNode(Visiere, null, leftEyeId);
@@ -1289,7 +1008,7 @@ function initNodes(Id)
             figure[rightEyeId] = createNode(rightEye, eyeHolesId, mouthPieceId);
         break;
         case cigarId :
-            figure[cigarId] = createNode(cigar, cigarBurnId, antennaHoleId);
+            figure[cigarId] = createNode(cigar, cigarBurnId, null);
         break;
         case mouthPieceId :
             figure[mouthPieceId] = createNode(mouthPiece, null, null);
@@ -1297,38 +1016,8 @@ function initNodes(Id)
         case eyeHolesId :
             figure[eyeHolesId] = createNode(eyeHoles, null, null);
         break;
-        case leftArmPitId :
-            figure[leftArmPitId] = createNode(leftArmPit, null, null);
-        break;
-        case rightArmPitId :
-            figure[rightArmPitId] = createNode(rightArmPit, null, null);
-        break;
-        case neckHoleId :
-            figure[neckHoleId] = createNode(neckHole, torsoHoleId, neckArrowId);
-        break;
-        case antennaHoleId :
-            figure[antennaHoleId] = createNode(antennaHole, null, antennaArrowId);
-        break;
         case cigarBurnId :
-            figure[cigarBurnId] = createNode(cigarBurn, null, cigarArrowId);
-        break;
-        case torsoHoleId :
-            figure[torsoHoleId] = createNode(torsoHole, null, null);
-        break;
-        case neckArrowId :
-            figure[neckArrowId] = createNode(neckArrow, null, null);
-        break;
-        case antennaArrowId :
-            figure[antennaArrowId] = createNode(antennaArrow, null, null);
-        break;
-        case cigarArrowId :
-            figure[cigarArrowId] = createNode(cigarArrow, null, beer1Id);
-        break;
-        case leftLegArrowId :
-            figure[leftLegArrowId] = createNode(leftLegArrow, null, null);
-        break;
-        case rightLegArrowId :
-            figure[rightLegArrowId] = createNode(rightLegArrow, null, null);
+            figure[cigarBurnId] = createNode(cigarBurn, null, beer1Id);
         break;
         case beer1Id :
             figure[beer1Id] = createNode(beer1, null, beer2Id);
@@ -1349,16 +1038,7 @@ function initNodes(Id)
             figure[popcornBoxId] = createNode(popcornBox, null, popcornId);
         break;
         case popcornId :
-            figure[popcornId] = createNode(popcorn, null, goldPileId);
-        break;
-        case torsoArrowId :
-            figure[torsoArrowId] = createNode(torsoArrow, null, TorsoDoorId);
-        break;
-        case goldPileId :
-            figure[goldPileId] = createNode(goldPile, null, torsoArrowId);
-        break;
-        case TorsoDoorId :
-            figure[TorsoDoorId] = createNode(torsoDoor, null, null);
+            figure[popcornId] = createNode(popcorn, null, null);
         break;
     }
 }
@@ -1396,6 +1076,8 @@ window.onload = function init()
 
         var vertexShaderSource = getTextContent("vshader");
         var fragmentShaderSource = getTextContent("fshader");
+        var vertexShaderSkybox = getTextContent("vshaderbox");
+        var fragmentShaderSkybox = getTextContent("fshaderbox");
         prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
 
         gl.useProgram(prog);
@@ -1432,6 +1114,17 @@ window.onload = function init()
         goldBar = createModel(gold(10.0));
 		
         initTexture();
+        
+        skybox = createModelbox(cube(1000.0));
+        progbox = createProgram(gl, vertexShaderSkybox, fragmentShaderSkybox);
+        gl.useProgram(progbox);
+        uEnvbox = gl.getUniformLocation(progbox, "skybox");
+        aCoordsbox = gl.getAttribLocation(progbox, "vcoords");
+        aNormalbox = gl.getAttribLocation(progbox, "vnormal");
+        aTexCoordbox = gl.getAttribLocation(progbox, "vtexcoord");
+
+        uModelviewbox = gl.getUniformLocation(progbox, "modelview");
+        uProjectionbox = gl.getUniformLocation(progbox, "projection");
 
         ambientProduct = mult(lightAmbient, materialAmbient);
         diffuseProduct = mult(lightDiffuse, materialDiffuse);
@@ -1455,7 +1148,8 @@ function initTexture()
     metal.isloaded = false; 
 
     metal.image = new Image();
-    metal.image.onload = function () {
+    metal.image.onload = function () 
+    {
         handleLoadedTexture(metal)
     }
     metal.image.src = "Textures/steel.jpg";
@@ -1464,7 +1158,8 @@ function initTexture()
     mouth.isloaded = false; 
 
     mouth.image = new Image();
-    mouth.image.onload = function () {
+    mouth.image.onload = function () 
+    {
         handleLoadedTexture(mouth)
     }
     mouth.image.src = "Textures/quadrille.jpg";
@@ -1473,7 +1168,8 @@ function initTexture()
     cigarTex.isloaded = false; 
 
     cigarTex.image = new Image();
-    cigarTex.image.onload = function () {
+    cigarTex.image.onload = function () 
+    {
         handleLoadedTexture(cigarTex)
     }
     cigarTex.image.src = "Textures/cigar.jpg";
@@ -1482,7 +1178,8 @@ function initTexture()
     eyes.isloaded = false; 
 
     eyes.image = new Image();
-    eyes.image.onload = function () {
+    eyes.image.onload = function () 
+    {
         handleLoadedTexture(eyes)
     }
     eyes.image.src = "Textures/Eyes.jpg";
@@ -1491,7 +1188,8 @@ function initTexture()
     burn.isloaded = false; 
 
     burn.image = new Image();
-    burn.image.onload = function () {
+    burn.image.onload = function () 
+    {
         handleLoadedTexture(burn)
     }
     burn.image.src = "Textures/burn.jpg";
@@ -1500,7 +1198,8 @@ function initTexture()
     popcornBoxTex.isloaded = false; 
 
     popcornBoxTex.image = new Image();
-    popcornBoxTex.image.onload = function () {
+    popcornBoxTex.image.onload = function () 
+    {
         handleLoadedTexture(popcornBoxTex)
     }
     popcornBoxTex.image.src = "Textures/popcornBox.jpg";
@@ -1509,7 +1208,8 @@ function initTexture()
     popcornTex.isloaded = false; 
 
     popcornTex.image = new Image();
-    popcornTex.image.onload = function () {
+    popcornTex.image.onload = function () 
+    {
         handleLoadedTexture(popcornTex)
     }
     popcornTex.image.src = "Textures/popcorn.jpg";
@@ -1518,25 +1218,30 @@ function initTexture()
     goldTex.isloaded = false; 
 
     goldTex.image = new Image();
-    goldTex.image.onload = function () {
+    goldTex.image.onload = function () 
+    {
         handleLoadedTexture(goldTex)
     }
     goldTex.image.src = "Textures/gold.jpg";
-}
 
-function handleLoadedTexture(texture) 
-{
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    var urls = [
+       "Skybox/nebula_posx.png", "Skybox/nebula_negx.png",
+       "Skybox/nebula_posy.png", "Skybox/nebula_negy.png",
+       "Skybox/nebula_posz.png", "Skybox/nebula_negz.png"
+    ];
 
-    texture.isloaded = true;
-
-    render();
-
-    gl.bindTexture(gl.TEXTURE_2D, null);
+    texIDmap0 = gl.createTexture();
+    texIDmap0.isloaded = false;  // this class member is created only to check if the image has been loaded
+    
+    for (var x = 0; x < 6; x++) 
+    {
+        img[x] = new Image();
+        img[x].onload = function () 
+        {  // this function is called when the image download is complete
+            handleLoadedTextureMap(texIDmap0);
+        }
+        img[x].src = urls[x];   // this line starts the image downloading thread
+    }
 }
 
 function whiteMaterial()
@@ -1587,4 +1292,47 @@ function goldMaterial()
     gl.uniform4fv(gl.getUniformLocation(prog, "ambientProduct"), flatten(ambientProduct));
     gl.uniform4fv(gl.getUniformLocation(prog, "diffuseProduct"), flatten(diffuseProduct));
     gl.uniform4fv(gl.getUniformLocation(prog, "specularProduct"), flatten(specularProduct));
+}
+
+function handleLoadedTexture(texture) 
+{
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+    texture.isloaded = true;
+
+    render();
+
+    gl.bindTexture(gl.TEXTURE_2D, null);
+}
+
+function handleLoadedTextureMap(texture) {
+    
+    ct++;
+    if (ct == 6) 
+    {
+        gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        var targets = [
+           gl.TEXTURE_CUBE_MAP_POSITIVE_X, gl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+           gl.TEXTURE_CUBE_MAP_POSITIVE_Y, gl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+           gl.TEXTURE_CUBE_MAP_POSITIVE_Z, gl.TEXTURE_CUBE_MAP_NEGATIVE_Z
+        ];
+        for (var j = 0; j < 6; j++) 
+        {
+            gl.texImage2D(targets[j], 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img[j]);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        }
+        gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
+
+        texture.isloaded = true;
+
+        render();  // Call render function when the image has been loaded (to insure the model is displayed)
+
+        gl.bindTexture(gl.TEXTURE_2D, null);
+    }
 }

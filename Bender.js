@@ -1328,7 +1328,7 @@ function initTexture()
     {
         handleLoadedTexture(eyes)
     }
-    eyes.image.src = "Textures/Eyes.jpg";
+    eyes.image.src = "Textures/eyes.jpg";
 
     burn = gl.createTexture();
     burn.isloaded = false; 

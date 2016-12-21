@@ -243,43 +243,46 @@ div.panel.show {
 			position: relative ; left: 350px; margin: 20px 0 0 0;
 	}
 
-#toc {
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    position: fixed;
-    background: #333;
-    box-shadow: inset -5px 0 5px 0px #000;
-    width: 150px;
-    padding-top: 20px;
-    color: #fff;
+article {
 }
 
-#toc ul {
-    margin: 0;
+.table-of-contents {
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	position: fixed;
+	background: #444;
+	box-shadow: inset -5px 0 5px 0px #000;
+	width: 200px;
+	font: 16px Helvetica, Arial, Sans-Serif; color: #fff; line-height: 24px;
+  	padding: 3em 3em 3em 2em;
+  	color: #fff;	
+}
+
+.table-of-contents ul {
+  	margin: 0;
     padding: 0;
-    list-style: none;
 }
 
-#toc li {
-    padding: 5px 10px;
+.table-of-contents li {
+  	padding: 20px 10px 10px 10px;;
 }
-
-#toc a {
-    color: #fff;
+.table-of-contents a {
+	color: #fff;
     text-decoration: none;
     display: block;
 }
 
-#toc .toc-h2 {
-    padding-left: 10px;
+.table-of-contents a:hover,
+.table-of-contents a:active {
+  text-decoration: underline;
 }
 
-#toc .toc-h3 {
-    padding-left: 20px;
+h3:target {
+  animation: highlight 1s ease;
 }
 
-#toc .toc-active {
-    background: #336699;
-    box-shadow: inset -5px 0px 10px -5px #000;
+@keyframes highlight {
+  from { background: yellow; }
+  to { background: white; }
 }

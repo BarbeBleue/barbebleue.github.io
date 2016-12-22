@@ -251,38 +251,67 @@ article {
 	left: 0px;
 	height: 100%;
 	position: fixed;
-	background: #444;
+	background: #333;
 	box-shadow: inset -5px 0 5px 0px #000;
 	width: 200px;
 	font: 16px Helvetica, Arial, Sans-Serif; color: #fff; line-height: 24px;
-  	padding: 3em 3em 3em 2em;
+	padding-top: 20px;
   	color: #fff;	
 }
 
 .table-of-contents ul {
   	margin: 0;
     padding: 0;
+    text-decoration: none;
 }
 
 .table-of-contents li {
-  	padding: 20px 10px 10px 10px;;
+  	text-decoration: none;
 }
 .table-of-contents a {
 	color: #fff;
     text-decoration: none;
     display: block;
+    padding: 20px 20px 20px 20px;
+}
+
+.table-of-contents h2{
+	padding-left: 10px;
+	padding-bottom: 20px;
+}
+
+.table-of-contents h3{
+	padding-left: 20px;
 }
 
 .table-of-contents a:hover,
 .table-of-contents a:active {
-  text-decoration: underline;
+  	background: #336699;
+    text-decoration: none;
+    box-shadow: inset -5px 0 5px 0px #000;
 }
 
 h3:target {
   animation: highlight 1s ease;
+  text-decoration: none;
 }
 
 @keyframes highlight {
   from { background: yellow; }
   to { background: white; }
+}
+
+a.back-to-top {
+	display: none;
+	width: 60px;
+	height: 60px;
+	text-indent: -9999px;
+	position: fixed;
+	z-index: 999;
+	right: 20px;
+	bottom: 20px;
+	background: #336699 url(images/up-arrow.png) no-repeat center;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
 }

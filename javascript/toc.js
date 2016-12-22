@@ -25,7 +25,6 @@ $("article h2").each(function() {
 });
 
 ToC +=
-    "<li id=\"back-top\"><a href=\"#\">Retour vers le haut</a></li>"
    "</ul>" +
   "</nav>";
 
@@ -60,7 +59,6 @@ $("article h2").each(function() {
 });
 
 ToC +=
-    "<li id=\"back-top\"><a href=\"#\">Back to top</a></li>"
    "</ul>" +
   "</nav>";
 

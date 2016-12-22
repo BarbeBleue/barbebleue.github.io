@@ -31,7 +31,7 @@ function addFooterFr()
 	var footer = document.getElementById("footer");
 	footer.innerHTML =
 		"<p id=\"copyright\">&copy; Simon Côté-Duchesne</p>"
-		+ "<p id=\"back-top\"><a href=\"#\">Retour vers le haut</a></p>"
+		+ "<p id=\"back-top\"><a href=\"#\" class=\"back-to-top\">Retour vers le haut</a></p>"
 		+ "<a id=\"twitter\" href=\"https://twitter.com/Simon_CoteDuch\" target=\"_blank\"><img src=\"images/twitter.png\" alt=\"twitter\"></a>"
 		+ "<a id=\"social\" href=\"https://www.facebook.com/simon.cote.7374\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
 		+ "<a id=\"social\" href=\"https://www.linkedin.com/in/simon-cote-8228a537\" target=\"_blank\"><img src=\"images/linkedin.png\" alt=\"linkedin\"></a>"
@@ -44,7 +44,7 @@ function addFooterEn()
 	var footerEn = document.getElementById("footer");
 	footerEn.innerHTML =
 		"<p id=\"copyright\">&copy; Simon Côté-Duchesne</p>"
-		+ "<p id=\"back-top\"><a href=\"#\">Back to top</a></p>"
+		+ "<p id=\"back-top\"><a href=\"#\" class=\"back-to-top\">Back to top</a></p>"
 		+ "<a id=\"twitter\" href=\"https://twitter.com/Simon_CoteDuch\" target=\"_blank\"><img src=\"images/twitter.png\" alt=\"twitter\"></a>"
 		+ "<a id=\"social\" href=\"https://www.facebook.com/simon.cote.7374\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
 		+ "<a id=\"social\" href=\"https://www.linkedin.com/in/simon-cote-8228a537\" target=\"_blank\"><img src=\"images/linkedin.png\" alt=\"linkedin\"></a>"

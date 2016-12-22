@@ -12,7 +12,6 @@
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/favicon.ico" /> 
 		<script src="javascript/includes.js" type="text/javascript"></script>
 		<script src="javascript/jquery-3.1.1.min.js"></script>
-		<script src="javascript/BackToTop.js"></script>
 		<title>Simon Côté-Duchesne</title>
 	</head>
 	<body>
@@ -25,13 +24,11 @@
 			    <p class="btn"><img src="images/home-header-btn.png"></p>
 		    </div>
 			<div id="content">
-				<div class="portfolio-item">
-					<p>By email :</p><a href="mailto:simoncoteduchesne@gmail.com">simoncoteduchesne@gmail.com</a>
-				</div>
-				<div class="portfolio-item">
-					<p>By phone :</p><a href="tel:+14185573003">418-557-3003</a>
-				</div>
-				<br><br><br><br><h3>By form :</h3>
+				<h3 align="left">By email:</h3>
+				<a align="center" href="mailto:simoncoteduchesne@gmail.com"> simoncoteduchesne@gmail.com</a></p>
+				<h3 align="left">By phone:</h3>
+				<a href="tel:+14185573003">418-557-3003</a></p>
+				<h3>By form :</h3>
 				<div class="portfolio-item-email">
 					<form id="contact_form" action="https://formspree.io/simoncoteduchesne@gmail.com" method="POST" enctype="multipart/form-data">
 						<div class="row">
@@ -48,21 +45,26 @@
 						</div>
 						<br><input id="submit_button" type="submit" value="Send email" />
 					</form>
-				</div>
+				</div></p>
 				<h3>By social media :</h3>
-				<div class="portfolio-item">
-					<a href="https://www.linkedin.com/in/simon-cote-8228a537" target="_blank"><img src="images/linkedin.png" alt="linkedin"></a>
-				</div>
-				<div class="portfolio-item">
-					<a href="https://www.facebook.com/simon.cote.7374" target="_blank"><img src="images/facebook.png" alt="facebook"></a>
-				</div>				
-				<div class="portfolio-item-twitter">
-					<a id="twitter" href="https://twitter.com/Simon_CoteDuch" target="_blank"><img src="images/twitter.png" alt="twitter"></a>
-				</div>
+				<table>
+					<tr>
+						<th>
+							<a class="socialmedia" href="https://ca.linkedin.com/in/simon-côté-duchesne-8228a537" target="_blank"><img src="images/linkedin.png" alt="linkedin"></a>
+						</th>
+						<th>
+							<a class="socialmedia" href="https://www.facebook.com/simon.cote.7374" target="_blank"><img src="images/facebook.png" alt="facebook"></a>
+						</th>
+						<th>
+							<a class="socialmedia" id="twitter" href="https://twitter.com/Simon_CoteDuch" target="_blank"><img src="images/twitter.png" alt="twitter"></a>
+						</th>
+					</tr>
+				</table>
 			</div>
 			<div id="footer">
 				<script>addFooterEn();</script>
 			</div>
     	</div>
+		<script src="javascript/BackToTop.js"></script>
 	</body>
 </html>

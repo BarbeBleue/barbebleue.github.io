@@ -41,6 +41,7 @@ ul#nav {
 			ul#nav li a:hover {
 				color: #a12121;
 			}
+
 p.language{
 	position: relative; right: -750px; top: 40px; display:block; overflow: hidden; color: white;
 }
@@ -98,8 +99,15 @@ p.language{
 		#content a:hover {
 			color: #671111;
 		}
+		#content a.socialmedia {
+			float: left;
+		}
+
 	#content iframe {
 		display: inline-block; margin: 25px 0 0 0; float: right; padding: 45px 0 0 15px; border-style: solid; border-color: #556;
+	}
+	#content iframe.videogame {
+		display: inline-block; margin: 0 0 0 0; float: right; padding: 45px 0 0 15px; border-style: solid; border-color: #556;
 	}
 
 #cv {
@@ -237,7 +245,7 @@ div.panel.show {
 			float: right; margin: 0 0 0 0; width: 75px; height: 75px
 	}
 	#footer a#twitter{
-			float: right; margin: 0 0 0 0; width: 85px; height: 85px
+			float: right; margin: 1px 0 0 0; width: 70px; height: 70px
 	}
 	#footer p#menu {
 			position: relative ; left: 350px; margin: 20px 0 0 0;
@@ -249,7 +257,6 @@ article {
 .table-of-contents {
 	top: 0px;
 	left: 0px;
-	height: 100%;
 	position: fixed;
 	background: #333;
 	box-shadow: inset -5px 0 5px 0px #000;
@@ -258,6 +265,12 @@ article {
 	padding-top: 20px;
   	color: #fff;	
 }
+	.table-of-contents#xp{
+	height: 28%;
+	}
+	.table-of-contents#curri{	
+	height: 35%;
+	}
 
 .table-of-contents ul {
   	margin: 0;
@@ -310,7 +323,7 @@ a.back-to-top {
 	z-index: 999;
 	right: 20px;
 	bottom: 20px;
-	background: #336699 url(images/up-arrow.png) no-repeat center;
+	background: #333 url(images/up-arrow.png) no-repeat center;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;

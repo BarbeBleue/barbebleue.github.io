@@ -32,7 +32,7 @@ function addFooterFr()
 	footer.innerHTML =
 		"<p id=\"copyright\">&copy; Simon Côté-Duchesne</p>"
 		+ "<p id=\"back-top\"><a href=\"#\" class=\"back-to-top\">Retour vers le haut</a></p>"
-		+ "<a id=\"social\" href=\"https://www.facebook.com/simon.cote.7374\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
+		+ "<a id=\"social\" href=\"https://www.facebook.com/8arbe8leue\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
 		+ "<a id=\"social\" href=\"https://ca.linkedin.com/in/simon-côté-duchesne-8228a537\" target=\"_blank\"><img src=\"images/linkedin.png\" alt=\"linkedin\"></a>"
 		+ "<a id=\"twitter\" href=\"https://twitter.com/Simon_CoteDuch\" target=\"_blank\"><img src=\"images/twitter.png\" alt=\"twitter\"></a>"
 		+ "<a id=\"social\" href=\"https://github.com/SimonCoteDuchesne\" target=\"_blank\"><img src=\"images/github.png\" alt=\"github\"></a>"
@@ -45,7 +45,7 @@ function addFooterEn()
 	footerEn.innerHTML =
 		"<p id=\"copyright\">&copy; Simon Côté-Duchesne</p>"
 		+ "<p id=\"back-top\"><a href=\"#\" class=\"back-to-top\">Back to top</a></p>"
-		+ "<a id=\"social\" href=\"https://www.facebook.com/simon.cote.7374\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
+		+ "<a id=\"social\" href=\"https://www.facebook.com/8arbe8leue\" target=\"_blank\"><img src=\"images/facebook.png\" alt=\"facebook\"></a>"
 		+ "<a id=\"social\" href=\"https://ca.linkedin.com/in/simon-côté-duchesne-8228a537\" target=\"_blank\"><img src=\"images/linkedin.png\" alt=\"linkedin\"></a>"
 		+ "<a id=\"twitter\" href=\"https://twitter.com/Simon_CoteDuch\" target=\"_blank\"><img src=\"images/twitter.png\" alt=\"twitter\"></a>"
 		+ "<a id=\"social\" href=\"https://github.com/SimonCoteDuchesne\" target=\"_blank\"><img src=\"images/github.png\" alt=\"github\"></a>"

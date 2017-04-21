@@ -222,7 +222,7 @@ div.panel {
 div.panel.show {
 	display: block;
     opacity: 1;
-    max-height: 800px;
+    max-height: 2000px;
 }
 		
 #footer {

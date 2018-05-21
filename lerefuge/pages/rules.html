@@ -2,10 +2,17 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Refuge Rulebook</title>
-    <link href="../css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="../css/le-refuge-extras.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Le Refuge">
+    <meta name="author" content="Côté-Knot">
+
+    <title>Refuge Rulebook</title>    
+
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css" rel="stylesheet">
+    <link href="../css/fluid-gallery.css" rel="stylesheet" >
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/le-refuge-extras.css" rel="stylesheet">
 
   </head>
 <body>
@@ -34,169 +41,182 @@
             </li>
           </ul>
         </div>
-      </div>
+      </dimv>
     </nav>
 
     <h1>Rules</h1>
-
-            <p class="page-description text-center">Thou shall read the rules</p>
+    <p class="page-description text-center">Thou shall read the rules</p>
 
 <!--- header div end -->
-<div class="panel-wrap">
-  <div class="panel-wrapper">
-    <div onclick="openTab('b1');" class="panel marRight30">
-      <div  class="img"><img src="../images/AngeleJohn.jpg"/></div>
-      <div class="title">
-        <h1>Lorem ipsum</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div onclick="openTab('b2');" class="panel marRight30">
-      <div  class="img"><img src="../images/William.jpg"/></div>
-      <div class="title">
-        <h1>Nulla necleo</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div  class="panel">
-      <div onclick="openTab('b3');" class="img"><img src="../images/Silvia.jpg"/></div>
-      <div class="title">
-        <h1>Glutonny</h1>
-      </div>
-      <div class="border"></div>
-    </div>
+  <div class="centered">
+    <section class="cards">
+      <article onclick="openTabAndScroll('b1', 150);" class="card">
+        <img src="../images/AngeleJohn.jpg"/>
+        <div align="center" class="title">
+          <h4>Lorem ipsum</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b2', 150);" class="card">
+        <img src="../images/William.jpg"/>
+        <div align="center" class="title">
+          <h4>Nulla necleo</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b3', 150);" class="card">
+        <img src="../images/Silvia.jpg"/>
+        <div align="center" class="title">
+          <h4>Glutonny</h4>
+        </div>
+      </article>
+    </section>
   </div>
 
-  <div id="b1" class="containerTab" style="display:none;background:green">
+  <div id="b1" class="containerTab" style="display:none;background-color:grey ">
     <!-- If you want the ability to close the container, add a close button -->
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
     <h2>Box 1</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b2" class="containerTab" style="display:none;background:blue">
+  <div id="b2" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
     <h2>Box 2</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b3" class="containerTab" style="display:none;background:red">
+  <div id="b3" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 3</h2>
+    <h2>Glutonny</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div class="panel-wrapper">
-    <div onclick="openTab('b4');" class="panel marRight30">
-      <div class="img"><img src="../images/Corinne.jpg"/></div>
-      <div class="title">
-        <h1>Cleanliness</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div onclick="openTab('b5');" class="panel marRight30">
-      <div class="img"><img src="../images/Marc.jpg"/></div>
-      <div class="title">
-        <h1>Generosity</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div onclick="openTab('b6');" class="panel">
-      <div class="img"><img src="../images/Emilie.jpg"/></div>
-      <div class="title">
-        <h1>Environmental</h1>
-      </div>
-      <div class="border"></div>
-    </div>
+  <div class="centered">
+    <section class="cards">
+      <article onclick="openTabAndScroll('b4', 550);" class="card">
+        <div class="img"><img src="../images/Corinne.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Cleanliness</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b5', 550);" class="card">
+        <div class="img"><img src="../images/Marc.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Generosity</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b6', 550);" class="card">
+        <div class="img"><img src="../images/Emilie.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Environmental</h4>
+        </div>
+      </article>
+    </section>
   </div>
 
-  <div id="b4" class="containerTab" style="display:none;background:green">
+  <div id="b4" class="containerTab" style="display:none;background-color:grey">
     <!-- If you want the ability to close the container, add a close button -->
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 1</h2>
+    <h2>Cleanliness</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b5" class="containerTab" style="display:none;background:blue">
+  <div id="b5" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 2</h2>
+    <h2>Generosity</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b6" class="containerTab" style="display:none;background:red">
+  <div id="b6" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 3</h2>
+    <h2>Environmental</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div class="panel-wrapper">
-    <div onclick="openTab('b7');" class="panel marRight30">
-      <div class="img"><img src="../images/Marilyne.jpg"/></div>
-      <div class="title">
-        <h1>Moderation</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div onclick="openTab('b8');" class="panel marRight30">
-      <div class="img"><img src="../images/Steve.jpg"/></div>
-      <div class="title">
-        <h1>Respectfulness</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-    <div onclick="openTab('b9');" class="panel">
-      <div class="img"><img src="../images/Philippe.jpg"/></div>
-      <div class="title">
-        <h1>Sed utrnat</h1>
-      </div>
-      <div class="border"></div>
-    </div>
+  <div class="centered">
+    <section class="cards">
+      <article position="" onclick="openTabAndScroll('b7', 1000);" class="card">
+        <div class="img"><img src="../images/Marilyne.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Moderation</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b8', 1000);" class="card">
+        <div class="img"><img src="../images/Steve.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Respectfulness</h4>
+        </div>
+      </article>
+      <article onclick="openTabAndScroll('b9', 1000);" class="card">
+        <div class="img"><img src="../images/Philippe.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Sed utrnat</h4>
+        </div>
+      </article>
+    </section>
   </div>
+</div>
 
-  <div id="b7" class="containerTab" style="display:none;background:green">
+  <div id="b7" class="containerTab" style="display:none;background-color:grey">
     <!-- If you want the ability to close the container, add a close button -->
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 1</h2>
+    <h2>Moderation</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b8" class="containerTab" style="display:none;background:blue">
+  <div id="b8" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 2</h2>
+    <h2>Respectfulness</h2>
     <p>Lorem ipsum..</p>
   </div>
 
-  <div id="b9" class="containerTab" style="display:none;background:red">
-    <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
-    <h2>Box 3</h2>
-    <p>Lorem ipsum..</p>
-  </div>
-
-  <div class="panel-wrapper">
-    <div onclick="openTab('b10');" class="panel">
-      <div class="img"><img src="../images/Simon.jpg"/></div>
-      <div class="title">
-        <h1>Happiness</h1>
-      </div>
-      <div class="border"></div>
-    </div>
-  </div>
-
-  <div id="b10" class="containerTab" style="display:none;background:red">
+  <div id="b9" class="containerTab" style="display:none;background-color:grey">
     <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
     <h2>Box 3</h2>
+    <p>Lorem ipsum..</p>
+  </div>
+
+  <div class="content">
+    <section class="cards">
+      <article onclick="openTabAndScroll('b10', 2000);" class="panel">
+        <div class="img"><img src="../images/Simon.jpg"/></div>
+        <div align="center" class="title">
+          <h4>Happiness</h4>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div id="b10" class="containerTab" style="display:none;background-color:grey">
+    <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
+    <h2>Happiness</h2>
     <p>Lorem ipsum..</p>
   </div>
 </div>
 
-    <script> function openTab(tabName) {
-    var i, x;
-    x = document.getElementsByClassName("containerTab");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    document.getElementById(tabName).style.display = "block";
-} </script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script> 
+    function openTabAndScroll(tabName, y) 
+    {
+      openTab(tabName);
+      window.scroll({top: y, left: 0, behavior: 'smooth'});
+    } 
+    </script>    
+    
+    <script> 
+    function openTab(tabName) 
+    {
+      var i, x;
+      x = document.getElementsByClassName("containerTab");
+      for (i = 0; i < x.length; i++) 
+      {
+          x[i].style.display = "none";
+      }
+      document.getElementById(tabName).style.display = "block";
+    } 
+    </script>    
 
 </body>
 </html>
